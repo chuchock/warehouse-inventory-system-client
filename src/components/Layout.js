@@ -3,13 +3,17 @@ import React from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
+import 'bootstrap/dist/css/bootstrap.css';
+import './styles/Layout.css';
+
 function Layout(props) {
 	return (
-		<React.Fragment>
-			<Navbar />
+		<div className="wrapper">
 			<Sidebar />
-			{props.children}
-		</React.Fragment>
+			<div id="content">
+				<Navbar />
+			</div>
+		</div>
 	);
 }
 

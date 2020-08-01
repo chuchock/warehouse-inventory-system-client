@@ -3,14 +3,14 @@ import React from 'react';
 import './styles/Sidebar.css';
 
 const Sidebar = () => (
-	<nav id="sidebar">
+	<div id="sidebar">
 		<div className="sidebar-header">
-			<h3>Bootstrap Sidebar</h3>
+			<h3>WYSIS</h3>
 		</div>
 
 		<ul className="list-unstyled components">
-			<p>Dummy Heading</p>
-			<li className="active">
+			{/* <p>Dummy Heading</p> */}
+			{/* <li className="active">
 				<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Home</a>
 				<ul className="collapse list-unstyled" id="homeSubmenu">
 					<li>
@@ -23,8 +23,8 @@ const Sidebar = () => (
 						<a href="#">Home 3</a>
 					</li>
 				</ul>
-			</li>
-			<li>
+			</li> */}
+			{/* <li>
 				<a href="#">About</a>
 				<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Pages</a>
 				<ul className="collapse list-unstyled" id="pageSubmenu">
@@ -38,24 +38,30 @@ const Sidebar = () => (
 						<a href="#">Page 3</a>
 					</li>
 				</ul>
+			</li> */}
+			<li>
+				<a href="#">Dashboard</a>
 			</li>
 			<li>
-				<a href="#">Portfolio</a>
+				<a href="#">Warehouses</a>
 			</li>
 			<li>
-				<a href="#">Contact</a>
+				<a href="#">Categories</a>
+			</li>
+			<li>
+				<a href="#">Products</a>
 			</li>
 		</ul>
-
+{/* 
 		<ul className="list-unstyled CTAs">
 			<li>
-				<a href="" className="download"></a>
+				<a href="" className="download">button 1</a>
 			</li>
 			<li>
-				<a href="" className="article"></a>
+				<a href="" className="article">button 2</a>
 			</li>
-		</ul>
-	</nav>
+		</ul> */}
+	</div>
 
 );
 
