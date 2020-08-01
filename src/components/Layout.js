@@ -7,11 +7,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/Layout.css';
 
 function Layout(props) {
+	console.log(props);
 	return (
 		<div className="wrapper">
 			<Sidebar />
 			<div id="content">
 				<Navbar />
+				<div className="container">
+					{props.children}
+				</div>
 			</div>
 		</div>
 	);

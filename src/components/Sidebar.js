@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles/Sidebar.css';
 
@@ -40,19 +41,27 @@ const Sidebar = () => (
 				</ul>
 			</li> */}
 			<li>
-				<a href="#">Dashboard</a>
+				<Link to="/dashboard">
+					Dashboard
+				</Link>
 			</li>
 			<li>
-				<a href="#">Warehouses</a>
+				<Link to="/warehouses">
+					Warehouses
+				</Link>
 			</li>
 			<li>
-				<a href="#">Categories</a>
+				<Link to="/categories">
+					Categories
+				</Link>
 			</li>
 			<li>
-				<a href="#">Products</a>
+				<Link to="/products">
+					Products
+				</Link>
 			</li>
 		</ul>
-{/* 
+		{/* 
 		<ul className="list-unstyled CTAs">
 			<li>
 				<a href="" className="download">button 1</a>
