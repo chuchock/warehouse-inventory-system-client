@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Categories = () => (
 	<div>
 		<h2>Categories</h2>
-		<button type="button" className="btn btn-primary">Add new</button>
+		<br />
+		<Link to="/categories/new" className="btn btn-primary">Add new</Link>
 		<br /><br />
 		<table className="table">
 			<thead>

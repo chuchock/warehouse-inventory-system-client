@@ -16,7 +16,7 @@ const WarehouseNew = () => (
 				<input type="text" className="form-control" id="txt-address" placeholder="" />
 			</div>
 
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-primary">Save</button>
 		</form>
 	</Fragment>
 );
