@@ -2,6 +2,9 @@ import React from 'react';
 
 const Categories = () => (
 	<div>
+		<h2>Categories</h2>
+		<button type="button" className="btn btn-primary">Add new</button>
+		<br /><br />
 		<table className="table">
 			<thead>
 				<tr>

@@ -1,7 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Warehouses = () => (
 	<div>
+		<h2>Warehouses</h2>
+		<br />
+		<Link to="/warehouses/new" className="btn btn-primary">Add new</Link>
+		<br /><br />
+
 		<table className="table">
 			<thead>
 				<tr>

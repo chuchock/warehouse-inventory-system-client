@@ -2,6 +2,9 @@ import React from 'react';
 
 const Products = () => (
 	<div>
+		<h2>Products</h2>
+		<button type="button" className="btn btn-primary">Add new</button>
+		<br /><br />
 		<table className="table">
 			<thead>
 				<tr>
