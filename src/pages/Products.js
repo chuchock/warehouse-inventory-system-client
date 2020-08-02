@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Products = () => (
 	<div>
 		<h2>Products</h2>
-		<button type="button" className="btn btn-primary">Add new</button>
+		<Link to="/products/new" className="btn btn-primary">Add new</Link>
 		<br /><br />
 		<table className="table">
 			<thead>
