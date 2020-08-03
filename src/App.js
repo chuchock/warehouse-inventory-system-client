@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import Home from './pages/Home';
+import Login from './pages/auth/login';
 import Dashboard from './pages/Dashboard';
 import Warehouses from './pages/Warehouses';
 import WarehouseNew from './pages/WarehouseNew';
@@ -17,7 +17,7 @@ function App() {
 		<BrowserRouter>
 			<Layout>
 				<Switch>
-					<Route exact path="/" component={Home} />
+					<Route exact path="/" component={Login} />
 					<Route exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/warehouses" component={Warehouses} />
 					<Route exact path="/warehouses/new" component={WarehouseNew} />

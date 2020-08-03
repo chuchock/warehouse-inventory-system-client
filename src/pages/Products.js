@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Products = () => (
 	<div>
 		<h2>Products</h2>
+		<br />
 		<Link to="/products/new" className="btn btn-primary">Add new</Link>
 		<br /><br />
 		<table className="table">

@@ -11,8 +11,10 @@ function Layout(props) {
 	return (
 		<div className="wrapper">
 			<Sidebar />
+
 			<div id="content">
 				<Navbar />
+				
 				<div className="container">
 					{props.children}
 				</div>
