@@ -1,24 +1,68 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const WarehouseNew = () => (
-	<Fragment>
-		<Link to="/warehouses" className="btn btn-link">Back</Link>
-		<br /><br />
-		<form>
-			<div className="form-group">
-				<label htmlFor="exampleFormControlInput1">Name</label>
-				<input type="text" className="form-control" id="txt-name" placeholder="" />
-			</div>
+const WarehouseNew = () => {
 
-			<div className="form-group">
-				<label htmlFor="exampleFormControlInput1">Address</label>
-				<input type="text" className="form-control" id="txt-address" placeholder="" />
-			</div>
+	const [warehouse, updateWarehouse] = useState({
+		name: '',
+		address: ''
+	});
 
-			<button type="submit" class="btn btn-primary">Save</button>
-		</form>
-	</Fragment>
-);
+	const updateState = e => {
+		updateWarehouse({
+			...warehouse,
+			[e.target.name]: e.target.value
+		})
+	}
+
+	const { name, address } = warehouse;
+
+	const submitWarehouse = e => {
+		e.preventDefault();
+
+		if (name.trim() === '') {
+			return;
+		}
+	}
+
+
+	return (
+		<Fragment>
+			<Link to="/warehouses" className="btn btn-link">Back</Link>
+			<br /><br />
+			<form
+				onSubmit={submitWarehouse}
+			>
+				<div className="form-group">
+					<label>Name</label>
+					<input
+						type="text"
+						name="name"
+						className="form-control"
+						placeholder=""
+						onChange={updateState}
+						value={name}
+						maxLength="200"
+					/>
+				</div>
+
+				<div className="form-group">
+					<label>Address</label>
+					<input
+						type="text"
+						name="address"
+						className="form-control"
+						placeholder=""
+						onChange={updateState}
+						value={address}
+						maxLength="200"
+					/>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
+		</Fragment>
+	);
+}
 
 export default WarehouseNew;
