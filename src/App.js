@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import Login from './pages/auth/login';
+import Login from './pages/auth/Login';
 import Dashboard from './pages/Dashboard';
 import Warehouses from './pages/Warehouses';
 import WarehouseNew from './pages/WarehouseNew';

@@ -1,36 +1,42 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { authenticationService } from '../../services/authenticationService';
 
 const Login = () => {
 
-	// State para iniciar sesión
-	const [usuario, guardarUsuario] = useState({
+	const [user, saveUser] = useState({
 		email: '',
 		password: ''
 	})
 
-	// extraer de usuario
-	const { email, password } = usuario;
+	const { email, password } = user;
 
 	const onChange = e => {
-		guardarUsuario({
-			...usuario,
+		saveUser({
+			...user,
 			[e.target.name]: e.target.value
 		})
 	}
 
-	// Cuando el usuario quiere iniciar sesión
 	const onSubmit = e => {
 		e.preventDefault();
 
-		// Validar que no haya campos vacios
 		if (email.trim() === '' || password.trim() === '') {
-			// mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+
 		}
 
-		// Pasarlo al action
-		// iniciarSesion({ email, password });
+		authenticationService.login(email, password)
+			.then(
+				// user => {
+				// 	const { from } = this.props.location.state || { from: { pathname: "/" } };
+				// 	this.props.history.push(from);
+				// },
+				// error => {
+				// 	setSubmitting(false);
+				// 	setStatus(error);
+				// }
+			);
 	}
 
 	return (
@@ -47,7 +53,7 @@ const Login = () => {
 							type="email"
 							id="email"
 							name="email"
-							placeholder="Tu Email"
+							placeholder="Your Email"
 							value={email}
 							onChange={onChange}
 						/>
@@ -72,7 +78,7 @@ const Login = () => {
 				</form>
 
 				<Link to={'/nueva-cuenta'} className="enlace-cuenta">
-					Obtener Cuenta
+					Get Account
 				</Link>
 
 			</div>
