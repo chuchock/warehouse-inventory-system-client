@@ -1,8 +1,11 @@
+var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	output: {
-		filename: 'app.bundle.js'
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'app.bundle.js',
+		publicPath: '/'
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -25,9 +28,20 @@ module.exports = {
 				}
 			},
 			{
+				test: /\.html$/,
+				use: [
+					{
+						loader: "html-loader"
+					}
+				]
+			},
+			{
 				test: /\.css$/,
 				loader: "style-loader!css-loader"
 			}
 		]
-	}
+	},
+	devServer: {
+		historyApiFallback: true,
+	},
 }

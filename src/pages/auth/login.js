@@ -40,47 +40,58 @@ const Login = () => {
 	}
 
 	return (
-		<div className="">
-			<div className="" >
-				<h1>Iniciar Sesión</h1>
-
-				<form
-					onSubmit={onSubmit}
-				>
-					<div className="">
-						<label htmlFor="email">Email</label>
-						<input
-							type="email"
-							id="email"
-							name="email"
-							placeholder="Your Email"
-							value={email}
-							onChange={onChange}
+		<div>
+			<div className="container mt-3">
+				<div className="col-md-12">
+					<div className="card card-container" >
+						<img
+							src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+							alt="profile-img"
+							className="profile-img-card"
 						/>
+						<h1>Iniciar Sesión</h1>
+
+						<form
+							onSubmit={onSubmit}
+						>
+							<div className="form-group">
+								<label htmlFor="email">Email</label>
+								<input
+									type="email"
+									className="form-control"
+									id="email"
+									name="email"
+									placeholder="Your Email"
+									value={email}
+									onChange={onChange}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="password">Password</label>
+								<input
+									type="password"
+									className="form-control"
+									id="password"
+									name="password"
+									placeholder="Tu Password"
+									value={password}
+									onChange={onChange}
+								/>
+							</div>
+
+							<div className="form-group">
+								<button
+									className="btn btn-primary btn-block">
+									<span>Login</span>
+								</button>
+							</div>
+						</form>
+
+						<Link to={'/register'} className="nav-link">
+							Sign Up</Link>
 					</div>
-
-					<div className="">
-						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							id="password"
-							name="password"
-							placeholder="Tu Password"
-							value={password}
-							onChange={onChange}
-						/>
-					</div>
-
-					<div className="">
-						<input type="submit" className="btn btn-primario btn-block"
-							value="Iniciar Sesión" />
-					</div>
-				</form>
-
-				<Link to={'/nueva-cuenta'} className="enlace-cuenta">
-					Get Account
-				</Link>
-
+				</div>
 			</div>
 		</div>
 	);
