@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -26,40 +27,40 @@ const validEmail = (value) => {
 	}
 };
 
-const vusername = (value) => {
-	if (value.length < 3 || value.length > 20) {
+const vpassword = (value) => {
+	if (value.length < 6 || value.length > 20) {
 		return (
 			<div className="alert alert-danger" role="alert">
-				The username must be between 3 and 20 characters.
+				The password must be between 6 and 20 characters.
 			</div>
 		);
 	}
 };
 
-const vpassword = (value) => {
-	if (value.length < 6 || value.length > 40) {
+const vconfirmpassword = (value, props, components) => {
+	const bothUsed = components.password[0].isUsed && components.confirmPassword[0].isUsed;
+	const bothChanged = components.password[0].isChanged && components.confirmPassword[0].isChanged;
+
+	if (bothChanged && bothUsed && components.password[0].value !== components.confirmPassword[0].value) {
 		return (
 			<div className="alert alert-danger" role="alert">
-				The password must be between 6 and 40 characters.
+				Passwords are not equal.
 			</div>
 		);
 	}
 };
 
 const Register = (props) => {
+
 	const form = useRef();
 	const checkBtn = useRef();
 
-	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 	const [successful, setSuccessful] = useState(false);
 	const [message, setMessage] = useState("");
 
-	const onChangeUsername = (e) => {
-		const username = e.target.value;
-		setUsername(username);
-	};
 
 	const onChangeEmail = (e) => {
 		const email = e.target.value;
@@ -71,6 +72,11 @@ const Register = (props) => {
 		setPassword(password);
 	};
 
+	const onChangeConfirmPassword = (e) => {
+		const confirmPassword = e.target.value;
+		setConfirmPassword(confirmPassword);
+	};
+
 	const handleRegister = (e) => {
 		e.preventDefault();
 
@@ -80,13 +86,13 @@ const Register = (props) => {
 		form.current.validateAll();
 
 		if (checkBtn.current.context._errors.length === 0) {
-			authenticationService.register(username, email, password).then(
+			authenticationService.register(email, password).then(
 				(response) => {
-					setMessage(response.data.message);
+					// setMessage(response.data.message);
+					setMessage("User successfully created");
 					setSuccessful(true);
 				},
 				(error) => {
-					console.log(error.response);
 					// const resMessage =
 					// 	(error.response &&
 					// 		error.response.data &&
@@ -114,21 +120,11 @@ const Register = (props) => {
 					className="profile-img-card"
 				/>
 
-				<Form onSubmit={handleRegister} ref={form}>
+				<Form
+					onSubmit={handleRegister}
+					ref={form}>
 					{!successful && (
 						<div>
-							<div className="form-group">
-								<label htmlFor="username">Username</label>
-								<Input
-									type="text"
-									className="form-control"
-									name="username"
-									value={username}
-									onChange={onChangeUsername}
-									validations={[required, vusername]}
-								/>
-							</div>
-
 							<div className="form-group">
 								<label htmlFor="email">Email</label>
 								<Input
@@ -149,7 +145,19 @@ const Register = (props) => {
 									name="password"
 									value={password}
 									onChange={onChangePassword}
-									validations={[required, vpassword]}
+									validations={[required, vpassword, vconfirmpassword]}
+								/>
+							</div>
+
+							<div className="form-group">
+								<label htmlFor="confirmPassword">Confirm Password</label>
+								<Input
+									type="password"
+									className="form-control"
+									name="confirmPassword"
+									value={confirmPassword}
+									onChange={onChangeConfirmPassword}
+									validations={[required, vpassword, vconfirmpassword]}
 								/>
 							</div>
 
@@ -171,8 +179,10 @@ const Register = (props) => {
 							</div>
 						</div>
 					)}
+
 					<CheckButton style={{ display: "none" }} ref={checkBtn} />
 				</Form>
+				<Link to="/" className="">Back</Link>
 			</div>
 		</div>
 	);

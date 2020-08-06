@@ -16,7 +16,7 @@ export const authenticationService = {
 	get currentUserValue() { return currentUserSubject.value }
 };
 
-function register(username, email, password) {
+function register(email, password) {
 	// return axios.post(API_URL + "/api/accounts/Create", {
 	// 	username,
 	// 	email,
@@ -32,33 +32,21 @@ function register(username, email, password) {
 
 function login(username, password) {
 
-	const user = {
+	const data = {
 		EmailAddress: username,
 		Password: password
 	}
+	return axios
+		.post(API_URL + "/api/accounts/Login", data)
+		.then((response) => {
+			console.log(response);
+			if (response.data.token) {
+				localStorage.setItem("currentUser", JSON.stringify(response.data.token));
+			}
 
-	const requestOptions = {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		// body: JSON.stringify({ username, password })
-		body: JSON.stringify(user)
-	};
-
-	// const apiUrl = 'http://localhost:4000';
-
-	return fetch(`${API_URL}/api/accounts/Login`, requestOptions)
-		.then(handleResponse)
-		.then(user => {
-			// store user details and jwt token in local storage to keep user 
-			// logged in between page refreshes
-
-			localStorage.setItem('currentUser', JSON.stringify(user));
-			currentUserSubject.next(user);
-
-			return user;
+			return response.data;
 		});
 }
-
 
 function logout() {
 	// remove user from local storage to log user out

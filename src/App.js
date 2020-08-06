@@ -35,6 +35,7 @@ const App = () => {
 				<Switch>
 					<Route exact path="/" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<Route component={NotFound} />
 				</Switch>
 				:
 				<Layout>
@@ -46,7 +47,6 @@ const App = () => {
 						<Route exact path="/categories/new" component={CategoryNew} />
 						<Route exact path="/products" component={Products} />
 						<Route exact path="/products/new" component={ProductNew} />
-						<Route component={NotFound} />
 					</Switch>
 				</Layout>
 			}

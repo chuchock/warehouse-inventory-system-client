@@ -14,7 +14,7 @@ function Layout(props) {
 
 			<div id="content">
 				<Navbar />
-				
+
 				<div className="container">
 					{props.children}
 				</div>
