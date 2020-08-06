@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import ProductService from '../services/productService';
 
+import Product from '../components/Product';
+
 const Products = () => {
 
 	const [products, setProducts] = useState([]);
@@ -10,6 +12,7 @@ const Products = () => {
 	useEffect(() => {
 		ProductService.getProducts().then(
 			(response) => {
+				console.log(products);
 				setProducts(response.data);
 			},
 			(error) => {
@@ -24,22 +27,20 @@ const Products = () => {
 			<br />
 			<Link to="/products/new" className="btn btn-primary">Add new</Link>
 			<br /><br />
-			<table className="table">
-				<thead>
-					<tr>
-						<th scope="col">Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					{products.map(product => {
-						return (
-							<tr key={product.productId}>
-								<td>{product.name}</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+			<div className="row">
+				{products.map(product => {
+					return (
+						<Product
+							key={product.productId}
+							name={product.name}
+							description={product.description}
+							quantity={product.quantity}
+							buyPrice={product.buyPrice}
+							salePrice={product.salePrice}
+						/>
+					);
+				})}
+			</div>
 		</div>
 	);
 };
