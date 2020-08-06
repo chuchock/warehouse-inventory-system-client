@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import WarehouseService from '../services/warehouseService';
+
 const WarehouseNew = () => {
 
 	const [warehouse, updateWarehouse] = useState({
@@ -23,8 +25,20 @@ const WarehouseNew = () => {
 		if (name.trim() === '') {
 			return;
 		}
-	}
 
+		WarehouseService.createWarehouse(warehouse).then(
+			(response) => {
+				console.log(response);
+				updateWarehouse({
+					name: '',
+					address: ''
+				});
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
+	}
 
 	return (
 		<Fragment>
@@ -59,7 +73,7 @@ const WarehouseNew = () => {
 					/>
 				</div>
 
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="submit" className="btn btn-primary">Save</button>
 			</form>
 		</Fragment>
 	);

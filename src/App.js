@@ -33,7 +33,7 @@ const App = () => {
 		<BrowserRouter>
 			{!currentUser ?
 				<Switch>
-					<Route exact path="/" component={Login} />
+					<Route exact path={["/", "/login"]} component={Login} />
 					<Route exact path="/register" component={Register} />
 					<Route component={NotFound} />
 				</Switch>

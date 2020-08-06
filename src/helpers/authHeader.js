@@ -9,12 +9,12 @@ The auth header is used to make authenticated HTTP requests to the server api us
 uthentication.
 */
 
-export function authHeader() {
+export default function authHeader() {
 	// return authorization header with jwt token
-	const currentUser = authenticationService.currentUserValue;
+	const token = authenticationService.currentUserValue;
 
-	if (currentUser && currentUser.jwtToken) {
-		return { Authorization: `Bearer ${currentUser.jwtToken}` };
+	if (token) {
+		return { Authorization: `Bearer ${token}` };
 	} else {
 		return {};
 	}

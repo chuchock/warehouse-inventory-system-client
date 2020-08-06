@@ -1,44 +1,51 @@
-import React from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Warehouses = () => (
-	<div>
-		<h2>Warehouses</h2>
-		<br />
-		<Link to="/warehouses/new" className="btn btn-primary">Add new</Link>
-		<br /><br />
+import WarehouseService from '../services/warehouseService';
 
-		<table className="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-);
+const Warehouses = () => {
+
+	const [warehouses, setWarehouses] = useState([]);
+
+	useEffect(() => {
+		WarehouseService.getWarehouses().then(
+			(response) => {
+				console.log(response);
+				setWarehouses(response.data);
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
+	}, []);
+
+	return (
+		<div>
+			<h2>Warehouses</h2>
+			<br />
+			<Link to="/warehouses/new" className="btn btn-primary">Add new</Link>
+			<br /><br />
+
+			<table className="table">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					{warehouses.map(warehouse => {
+						return (
+							<tr key={warehouse.warehouseId}>
+								<td>{warehouse.name}</td>
+								<td>{warehouse.address}</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+		</div>
+	);
+}
 
 export default Warehouses;
