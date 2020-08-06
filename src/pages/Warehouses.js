@@ -1,6 +1,8 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import './styles/Warehouses.css';
+
 import WarehouseService from '../services/warehouseService';
 
 const Warehouses = () => {
@@ -19,6 +21,12 @@ const Warehouses = () => {
 		);
 	}, []);
 
+	const deleteWarehouse = warehouseId => {
+		// get differents of id from appointments, we use !
+		const newWarehouses = warehouses.filter(warehouse => warehouse.warehouseId !== warehouseId);
+		setWarehouses(newWarehouses);
+	}
+
 	return (
 		<div>
 			<h2>Warehouses</h2>
@@ -31,6 +39,7 @@ const Warehouses = () => {
 					<tr>
 						<th scope="col">Name</th>
 						<th scope="col">Address</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,6 +48,15 @@ const Warehouses = () => {
 							<tr key={warehouse.warehouseId}>
 								<td>{warehouse.name}</td>
 								<td>{warehouse.address}</td>
+								<td className="table-actions">
+									<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
+									<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
+									<button
+										type="button"
+										className="btn btn-danger"
+										onClick={() => deleteWarehouse(warehouse.warehouseId)}
+									><i className="fas fa-trash-alt"></i></button>
+								</td>
 							</tr>
 						);
 					})}
