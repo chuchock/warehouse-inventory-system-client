@@ -60,12 +60,12 @@ const Dashboard = () => {
 				<Card
 					count={categoriesCount}
 					name='Categories'
-					url='categories'
+					url='/categories'
 					image='https://image.flaticon.com/icons/png/128/50/50017.png?ga=GA1.2.670816050.1596686111' />
 				<Card
 					count={productsCount}
 					name='Products'
-					url='products'
+					url='/products'
 					image='https://image.flaticon.com/icons/png/128/102/102348.png?ga=GA1.2.670816050.1596686111'
 				/>
 			</div>

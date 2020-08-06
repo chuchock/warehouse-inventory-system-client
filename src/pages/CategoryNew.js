@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import CategoryService from '../services/categoryService';
+
 const CategoryNew = () => {
 
 	const [category, updateCategory] = useState({
@@ -22,6 +24,18 @@ const CategoryNew = () => {
 		if (name.trim() === '') {
 			return;
 		}
+
+		CategoryService.createCategory(category).then(
+			(response) => {
+				console.log(response);
+				updateCategory({
+					name: ''
+				});
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
 	}
 
 	return (
