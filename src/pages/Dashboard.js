@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
+
 import Card from '../components/Card';
 import Table from '../components/Table';
 
@@ -53,14 +54,18 @@ const Dashboard = () => {
 				<Card
 					count={warehousesCount}
 					name='Warehouses'
+					url='/warehouses'
 					image='https://image.flaticon.com/icons/png/128/18/18404.png?ga=GA1.2.670816050.1596686111' />
+
 				<Card
 					count={categoriesCount}
 					name='Categories'
+					url='categories'
 					image='https://image.flaticon.com/icons/png/128/50/50017.png?ga=GA1.2.670816050.1596686111' />
 				<Card
 					count={productsCount}
 					name='Products'
+					url='products'
 					image='https://image.flaticon.com/icons/png/128/102/102348.png?ga=GA1.2.670816050.1596686111'
 				/>
 			</div>
