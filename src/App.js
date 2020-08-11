@@ -9,6 +9,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
 import Inventories from './pages/Inventories';
+import InventoryNew from './pages/InventoryNew';
 import Warehouses from './pages/Warehouses';
 import WarehouseNew from './pages/WarehouseNew';
 import Categories from './pages/Categories';
@@ -43,6 +44,7 @@ const App = () => {
 					<Switch>
 						<Route exact path="/dashboard" component={Dashboard} />
 						<Route exact path="/inventories" component={Inventories} />
+						<Route exact path="/inventories/new" component={InventoryNew} />
 						<Route exact path="/warehouses" component={Warehouses} />
 						<Route exact path="/warehouses/new" component={WarehouseNew} />
 						<Route exact path="/categories" component={Categories} />
