@@ -29,7 +29,7 @@ const Products = () => {
 			<br /><br />
 
 			{products.length === 0 && (
-				<div class="alert alert-info" role="alert">
+				<div className="alert alert-info" role="alert">
 					There are no registered products.
 				</div>
 			)}
