@@ -19,7 +19,6 @@ const createProduct = (product) => {
 	const data = {
 		name: product.name,
 		description: product.description,
-		quantity: product.quantity,
 		buyPrice: product.buyPrice,
 		salePrice: product.salePrice,
 		categoryId: product.categoryId,

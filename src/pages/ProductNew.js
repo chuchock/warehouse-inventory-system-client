@@ -9,7 +9,6 @@ const ProductNew = () => {
 	const [product, setProduct] = useState({
 		name: '',
 		description: '',
-		quantity: 0,
 		buyPrice: 0.0,
 		salePrice: 0.0,
 		categoryId: -1
@@ -36,7 +35,7 @@ const ProductNew = () => {
 		);
 	}, []);
 
-	const { name, description, quantity, buyPrice, salePrice, categoryId } = product;
+	const { name, description, buyPrice, salePrice, categoryId } = product;
 
 	const submitProduct = e => {
 		e.preventDefault();
@@ -46,7 +45,6 @@ const ProductNew = () => {
 				setProduct({
 					name: '',
 					description: '',
-					quantity: 0,
 					buyPrice: 0.0,
 					salePrice: 0.0,
 					categoryId: -1
@@ -91,16 +89,7 @@ const ProductNew = () => {
 				</div>
 
 				<div className="form-row">
-					<div className="form-group col-md-4">
-						<label>Quantity</label>
-						<input
-							type="number"
-							className="form-control"
-							name="quantity"
-							onChange={updateState}
-							value={quantity} />
-					</div>
-					<div className="form-group col-md-4">
+					<div className="form-group col-md-6">
 						<label>Buy price</label>
 						<input
 							type="text"
@@ -110,7 +99,7 @@ const ProductNew = () => {
 							value={buyPrice}
 						/>
 					</div>
-					<div className="form-group col-md-4">
+					<div className="form-group col-md-6">
 						<label>Sale price</label>
 						<input
 							type="text"
@@ -125,11 +114,14 @@ const ProductNew = () => {
 				<div className="form-group">
 					<label>Category</label>
 					<select
-						name="idCategory"
+						name="categoryId"
 						className="form-control"
 						onChange={updateState}
-						value={categoryId}
+					// value={categoryId}
 					>
+						<option
+							value="-1"
+						>Choose category</option>
 						{categories.map(category => {
 							return (
 								<option
