@@ -1,38 +1,61 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import CategoryService from '../services/categoryService';
+import ProductService from '../services/productService';
 
 const ProductNew = () => {
 
-	const [product, updateProduct] = useState({
+	const [product, setProduct] = useState({
 		name: '',
 		description: '',
 		quantity: 0,
 		buyPrice: 0.0,
 		salePrice: 0.0,
-		idCategory: -1
+		categoryId: -1
 	});
 
+	const [categories, setCategories] = useState([]);
+
 	const updateState = e => {
-		updateProduct({
+		setProduct({
 			...product,
 			[e.target.name]: e.target.value
 		})
 	}
 
-	const { name, description, quantity, buyPrice, salePrice, idCategory } = product;
+	useEffect(() => {
+		CategoryService.getCategories().then(
+			(response) => {
+				console.log(response);
+				setCategories(response.data);
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
+	}, []);
+
+	const { name, description, quantity, buyPrice, salePrice, categoryId } = product;
 
 	const submitProduct = e => {
 		e.preventDefault();
 
-		// restart form
-		updateAppointment({
-			name: '',
-			description: '',
-			quantity: 0,
-			buyPrice: 0.0,
-			salePrice: 0.0,
-			idCategory: -1
-		})
+		ProductService.createProduct(product).then(
+			(response) => {
+				setProduct({
+					name: '',
+					description: '',
+					quantity: 0,
+					buyPrice: 0.0,
+					salePrice: 0.0,
+					categoryId: -1
+				});
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
 	}
 
 	return (
@@ -103,8 +126,18 @@ const ProductNew = () => {
 					<label>Category</label>
 					<select
 						name="idCategory"
-						className="form-control">
-						<option>Choose...</option>
+						className="form-control"
+						onChange={updateState}
+						value={categoryId}
+					>
+						{categories.map(category => {
+							return (
+								<option
+									key={category.categoryId}
+									value={category.categoryId}
+								>{category.name}</option>
+							);
+						})}
 					</select>
 				</div>
 
