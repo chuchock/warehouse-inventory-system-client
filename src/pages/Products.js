@@ -27,6 +27,13 @@ const Products = () => {
 			<br />
 			<Link to="/products/new" className="btn btn-primary">Add new</Link>
 			<br /><br />
+
+			{products.length === 0 && (
+				<div class="alert alert-info" role="alert">
+					There are no registered products.
+				</div>
+			)}
+
 			<div className="row">
 				{products.map(product => {
 					return (
