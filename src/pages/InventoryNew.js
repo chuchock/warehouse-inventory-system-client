@@ -5,7 +5,7 @@ import WarehouseService from '../services/warehouseService';
 import ProductService from '../services/productService';
 import InventoryService from '../services/inventoryService';
 
-const InventoryNew = () => {
+const InventoryNew = (props) => {
 
 	const [inventory, setInventory] = useState({
 		warehouseId: -1,
@@ -56,6 +56,8 @@ const InventoryNew = () => {
 					ProductId: -1,
 					quantity: 0
 				});
+
+				props.history.push('/inventories');
 			},
 			(error) => {
 				console.log("error: " + error);
