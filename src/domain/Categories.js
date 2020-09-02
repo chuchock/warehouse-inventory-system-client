@@ -34,6 +34,7 @@ const Categories = () => {
 				<thead>
 					<tr>
 						<th scope="col">Name</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
