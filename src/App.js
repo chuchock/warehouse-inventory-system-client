@@ -16,6 +16,7 @@ import Categories from './pages/Categories';
 import CategoryNew from './pages/CategoryNew';
 import Products from './pages/Products';
 import ProductNew from './pages/ProductNew';
+import Sales from './pages/Sales';
 import NotFound from './pages/NotFound';
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
 				<Layout>
 					<Switch>
 						<Route exact path="/dashboard" component={Dashboard} />
+						<Route exact path="/sales" component={Sales}/>
 						<Route exact path="/inventories" component={Inventories} />
 						<Route exact path="/inventories/new" component={InventoryNew} />
 						<Route exact path="/warehouses" component={Warehouses} />

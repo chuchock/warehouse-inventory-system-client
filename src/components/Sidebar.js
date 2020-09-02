@@ -46,6 +46,11 @@ const Sidebar = () => (
 				</Link>
 			</li>
 			<li>
+				<Link to="/sales">
+					Sales
+				</Link>
+			</li>
+			<li>
 				<Link to="/inventories">
 					Inventories
 				</Link>
