@@ -9,16 +9,12 @@ function Navbar() {
 	const [currentUser, setCurrentUser] = useState(null);
 
 	useEffect(() => {
-		authenticationService.currentUser.subscribe(x => setCurrentUser(x));
-		console.log("user:");
-		console.log(currentUser);
+		//authenticationService.currentUser.subscribe(x => setCurrentUser(x));
 	}, []);
 
 	const logout = () => {
 		authenticationService.logout();
-		// history.push('/login');
 	}
-
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,7 +25,9 @@ function Navbar() {
 					<span></span>
 					<span></span>
 				</button>
-				<button className="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<button className="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
 					<i className="fas fa-align-justify"></i>
 				</button>
 

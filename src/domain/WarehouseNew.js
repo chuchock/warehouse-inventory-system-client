@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import WarehouseService from '../services/warehouseService';
 
-const WarehouseNew = () => {
+const WarehouseNew = (props) => {
 
 	const [warehouse, updateWarehouse] = useState({
 		name: '',
@@ -28,11 +28,12 @@ const WarehouseNew = () => {
 
 		WarehouseService.createWarehouse(warehouse).then(
 			(response) => {
-				console.log(response);
 				updateWarehouse({
 					name: '',
 					address: ''
 				});
+
+				props.history.push('/warehouses');
 			},
 			(error) => {
 				console.log("error: " + error);

@@ -1,16 +1,11 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
-
 import 'bootstrap/dist/css/bootstrap.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import './global.css';
+import './assets/styles/global.css';
+import App from './routes/App';
 
-import App from './App';
-
-ReactDom.render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>,
+ReactDOM.render(
+	<App />,
 	document.getElementById('app')
 );

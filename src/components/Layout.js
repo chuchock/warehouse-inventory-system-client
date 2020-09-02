@@ -3,11 +3,10 @@ import React from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import './styles/Layout.css';
 
-function Layout(props) {
-	console.log(props);
+const Layout = (props) => {
 	return (
 		<div className="wrapper">
 			<Sidebar />

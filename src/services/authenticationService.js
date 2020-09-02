@@ -27,7 +27,7 @@ function register(email, password) {
 		Password: password
 	}
 
-	return axios.post(API_URL + "/api/accounts/Create", data);
+	return axios.post(API_URL + "/api/accounts/create", data);
 }
 
 function login(username, password) {
@@ -37,7 +37,7 @@ function login(username, password) {
 		Password: password
 	}
 	return axios
-		.post(API_URL + "/api/accounts/Login", data)
+		.post(API_URL + "/api/accounts/login", data)
 		.then((response) => {
 			console.log(response);
 			if (response.data.token) {

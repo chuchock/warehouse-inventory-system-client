@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import "bootstrap/dist/css/bootstrap.min.css";
 
-import { authenticationService } from './services/authenticationService';
+import Layout from '../components/Layout';
+import Login from '../domain/auth/Login';
+import Register from '../domain/auth/Register';
+import Dashboard from '../domain/Dashboard';
+import Inventories from '../domain/Inventories';
+import InventoryNew from '../domain/InventoryNew';
+import Warehouses from '../domain/Warehouses';
+import WarehouseNew from '../domain/WarehouseNew';
+import Categories from '../domain/Categories';
+import CategoryNew from '../domain/CategoryNew';
+import Products from '../domain/Products';
+import ProductNew from '../domain/ProductNew';
+import Sales from '../domain/Sales';
+import NotFound from '../domain/NotFound';
 
-import Layout from './components/Layout';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Dashboard from './pages/Dashboard';
-import Inventories from './pages/Inventories';
-import InventoryNew from './pages/InventoryNew';
-import Warehouses from './pages/Warehouses';
-import WarehouseNew from './pages/WarehouseNew';
-import Categories from './pages/Categories';
-import CategoryNew from './pages/CategoryNew';
-import Products from './pages/Products';
-import ProductNew from './pages/ProductNew';
-import Sales from './pages/Sales';
-import NotFound from './pages/NotFound';
+import { authenticationService } from '../services/authenticationService';
 
 const App = () => {
 
@@ -43,8 +42,8 @@ const App = () => {
 				:
 				<Layout>
 					<Switch>
-						<Route exact path="/dashboard" component={Dashboard} />
-						<Route exact path="/sales" component={Sales}/>
+						<Route exact path={['/', '/dashboard']} component={Dashboard} />
+						<Route exact path="/sales" component={Sales} />
 						<Route exact path="/inventories" component={Inventories} />
 						<Route exact path="/inventories/new" component={InventoryNew} />
 						<Route exact path="/warehouses" component={Warehouses} />
