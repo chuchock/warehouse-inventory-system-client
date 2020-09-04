@@ -16,8 +16,13 @@ const createInventory = (inventory) => {
 	return axios.post(API_URL + "/inventories", data, { headers: authHeader() });
 };
 
+const getProductStock = (name) => {
+	return axios.get(API_URL + "/inventories/0/product/" + name, { headers: authHeader() });
+};
+
 
 export default {
 	getInventoriesByWarehouse,
-	createInventory
+	createInventory,
+	getProductStock
 };

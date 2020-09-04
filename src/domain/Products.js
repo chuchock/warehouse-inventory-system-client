@@ -44,6 +44,7 @@ const Products = () => {
 							quantity={product.quantity}
 							buyPrice={product.buyPrice}
 							salePrice={product.salePrice}
+							column={'col-md-6'}
 						/>
 					);
 				})}

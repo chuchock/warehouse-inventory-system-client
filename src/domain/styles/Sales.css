@@ -1,0 +1,27 @@
+.cart-header {
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.cart-container {
+    background-color: #e8f6f0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 2px 0px 2px 0px;
+}
+
+.cart-container-product {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cart-summary {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cart-footer {
+    display: flex;
+    justify-content: flex-end;
+}
