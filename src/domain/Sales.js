@@ -20,8 +20,10 @@ const Sales = () => {
 			setTimeout(() => {
 				InventoryService.getProductStock(searchProduct).then(
 					(response) => {
-						console.log(response.data)
-						setProducts(response.data);
+						// Get difference between response products and cart
+						const diffProducts = response.data.filter(({ inventoryId: id1 }) => !cart.some(({ inventoryId: id2 }) => id1 === id2));
+
+						setProducts(diffProducts);
 					},
 					(error) => {
 						console.log("error: " + error);
@@ -45,9 +47,8 @@ const Sales = () => {
 		]);
 
 		// calculate total
-		const totalCost = parseFloat(total) + parseFloat(product.product.salePrice)
+		const totalCost = parseFloat(total) + parseFloat(product.product.salePrice * product.saleQuantity)
 		setTotal(totalCost);
-
 
 		// remove product from search list
 		const newProducts = products.filter(product => product.inventoryId !== inventoryId);
@@ -55,6 +56,12 @@ const Sales = () => {
 	}
 
 	const deleteProduct = (inventoryId) => {
+		// calculate total
+		const product = cart.find(product => product.inventoryId === inventoryId);
+		const totalCost = parseFloat(total) - parseFloat(product.product.salePrice * product.saleQuantity);
+		setTotal(totalCost);
+
+		// remove product from cart array
 		const newCart = cart.filter(product => product.inventoryId !== inventoryId);
 		setCart(newCart);
 		setSearchProduct('');
@@ -81,7 +88,7 @@ const Sales = () => {
 			<div className="row">
 				<div className="col-md-12">
 					<div className="cart-header">
-						<span className="font-weight-bold">Products added to cart:</span><span>{cart.length}</span>
+						<span className="font-weight-bold mr-1">Products added to cart:</span><span>{cart.length}</span>
 					</div>
 					{cart.map(cart => {
 						return (
@@ -102,7 +109,7 @@ const Sales = () => {
 										</div>
 										<div>
 											<span className="font-weight-bold">Price: </span>
-											{cart.warehouse.salePrice}
+											{cart.product.salePrice}
 										</div>
 										<div>
 											<span className="font-weight-bold">Quantity: </span>
@@ -116,7 +123,7 @@ const Sales = () => {
 					})
 					}
 					<div className="cart-summary mt-2 mb-2">
-						<span className="font-weight-bold">Total: $ </span> {total}
+						<span className="font-weight-bold mr-1">Total: $ </span> {total}
 					</div>
 					<div className="cart-footer">
 						<button

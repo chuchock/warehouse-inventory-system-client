@@ -15,7 +15,8 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 		setSaleQuantity(saleQuantity);
 
 		saleQuantity > quantity ?
-			setInvalidSaleQuantity(true) : setInvalidSaleQuantity(false);
+			setInvalidSaleQuantity(true) :
+			setInvalidSaleQuantity(false);
 	}
 
 	return (
@@ -24,24 +25,26 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 				<div className="card-header">
 					<h5 className="card-title">{name}</h5>
 				</div>
-				<div className="row no-gutters">
+				<div className="p-2">
+					<p className="card-text font small">{description}</p>
+				</div>
+				<div className="row no-gutters mb-2">
 					<div className="col-md-6 product-image">
 						<img src="https://thumbs.dreamstime.com/z/cleaning-product-22555088.jpg" className="card-img" alt="" />
 					</div>
 					<div className="col-md-6">
 						<div className="card-body">
-							<p className="card-text">{description}</p>
 							{quantity &&
-								<p className="card-text"><small className="text-muted">In stock: {quantity}</small></p>
+								<p className="card-text mb-0"><small className="text-muted">In stock: {quantity}</small></p>
 							}
 							{buyPrice &&
-								<p className="card-text"><small className="text-muted">Buy price: {buyPrice}</small></p>
+								<p className="card-text mb-0"><small className="text-muted">Buy price: {buyPrice}</small></p>
 							}
 							{salePrice &&
-								<p className="card-text"><small className="text-muted">Sale price: {salePrice}</small></p>
+								<p className="card-text mb-0"><small className="text-muted">Sale price: ${salePrice}</small></p>
 							}
 							{category &&
-								<p className="card-text"><small className="text-muted">Category: {category}</small></p>
+								<p className="card-text mb-0"><small className="text-muted">Category: {category}</small></p>
 							}
 
 							{/* <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p> */}
@@ -70,7 +73,7 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 								<button
 									type="button"
 									className="btn btn-primary"
-									disabled={saleQuantity === '' ? 'disabled' : ''}
+									disabled={invalidSaleQuantity || saleQuantity === '' ? 'disabled' : ''}
 									onClick={() => addProduct(inventoryId, saleQuantity)}>Add</button>
 							</div>
 						</>
