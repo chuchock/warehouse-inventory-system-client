@@ -23,7 +23,7 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 		<div className={column}>
 			<div className="card mb-3">
 				<div className="card-header">
-					<h5 className="card-title">{name}</h5>
+					<h5 className="card-title mb-0">{name}</h5>
 				</div>
 				<div className="p-2">
 					<p className="card-text font small">{description}</p>
@@ -35,16 +35,16 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 					<div className="col-md-6">
 						<div className="card-body">
 							{quantity &&
-								<p className="card-text mb-0"><small className="text-muted">In stock: {quantity}</small></p>
+								<p className="card-text mb-0"><small className="text-muted font-weight-bold">In stock: </small><small>{quantity}</small></p>
 							}
 							{buyPrice &&
-								<p className="card-text mb-0"><small className="text-muted">Buy price: {buyPrice}</small></p>
+								<p className="card-text mb-0"><small className="text-muted font-weight-bold">Buy price: </small><small>${buyPrice}</small></p>
 							}
 							{salePrice &&
-								<p className="card-text mb-0"><small className="text-muted">Sale price: ${salePrice}</small></p>
+								<p className="card-text mb-0"><small className="text-muted font-weight-bold">Sale price: </small><small>${salePrice}</small></p>
 							}
 							{category &&
-								<p className="card-text mb-0"><small className="text-muted">Category: {category}</small></p>
+								<p className="card-text mb-0"><small className="text-muted font-weight-bold">Category: </small><small>{category}</small></p>
 							}
 
 							{/* <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p> */}
