@@ -71,34 +71,41 @@ const Inventories = () => {
 			</form>
 
 			<br></br>
-			<table className="table">
-				<thead>
-					<tr>
-						<th scope="col">Product</th>
-						<th scope="col">Quantity</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{inventories.map(inventory => {
-						return (
-							<tr key={inventory.inventoryId}>
-								<td>{inventory.product.name}</td>
-								<td>{inventory.quantity}</td>
-								<td className="table-actions">
-									<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
-									<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
-									{/* <button
+
+			{inventories.length === 0 ? (
+				<div className="alert alert-info" role="alert">
+					There are no registered inventories.
+				</div>
+			) :
+				<table className="table">
+					<thead>
+						<tr>
+							<th scope="col">Product</th>
+							<th scope="col">Quantity</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{inventories.map(inventory => {
+							return (
+								<tr key={inventory.inventoryId}>
+									<td>{inventory.product.name}</td>
+									<td>{inventory.quantity}</td>
+									<td className="table-actions">
+										<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
+										<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
+										{/* <button
 										type="button"
 										className="btn btn-danger"
 										onClick={() => deleteCategory(category.categoryId)}
 									><i className="fas fa-trash-alt"></i></button> */}
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			}
 		</div>
 	);
 };
