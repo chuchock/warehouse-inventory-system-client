@@ -29,33 +29,41 @@ const Categories = () => {
 			<h2>Categories</h2>
 			<br />
 			<Link to="/categories/new" className="btn btn-primary">Add new</Link>
+
 			<br /><br />
-			<table className="table">
-				<thead>
-					<tr>
-						<th scope="col">Name</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{categories.map(category => {
-						return (
-							<tr key={category.categoryId}>
-								<td>{category.name}</td>
-								<td className="table-actions">
-									<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
-									<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
-									<button
-										type="button"
-										className="btn btn-danger"
-										onClick={() => deleteCategory(category.categoryId)}
-									><i className="fas fa-trash-alt"></i></button>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+
+			{categories.length === 0 ? (
+				<div className="alert alert-info" role="alert">
+					There are no registered categories.
+				</div>
+			) :
+				<table className="table">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{categories.map(category => {
+							return (
+								<tr key={category.categoryId}>
+									<td>{category.name}</td>
+									<td className="table-actions">
+										<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
+										<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={() => deleteCategory(category.categoryId)}
+										><i className="fas fa-trash-alt"></i></button>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			}
 		</div>
 	);
 };
