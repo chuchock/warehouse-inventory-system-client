@@ -2,24 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 
-
 import SaleService from '../services/saleService';
 
 const Sales = () => {
 
 	const [sales, setSales] = useState([]);
 
+	const [pageNum, setPageNum] = useState(1);
+
+	const [totalPaginationPages, setTotalPaginationPages] = useState(0);
+
 	useEffect(() => {
-		SaleService.getSales().then(
+		SaleService.getSales(pageNum).then(
 			(response) => {
 				console.log(response);
+				setTotalPaginationPages(response.headers.totalamountpages);
 				setSales(response.data);
 			},
 			(error) => {
-				console.log("error: " + error);
+				console.log(error);
 			}
 		);
-	}, []);
+	}, [pageNum]);
+
+	const paginate = pageNum => {
+		setPageNum(pageNum);
+	}
+
+	const nextPage = () => {
+		if (pageNum + 1 <= totalPaginationPages)
+			setPageNum(pageNum + 1);
+	};
+
+	const prevPage = () => {
+		if (pageNum - 1 > 0)
+			setPageNum(pageNum - 1);
+	}
 
 	return (
 		<div>
@@ -60,7 +78,10 @@ const Sales = () => {
 					<div className="d-flex justify-content-center">
 						<Pagination
 							rowsPerPage={10}
-							totalRows={sales.length}
+							pageNumbers={totalPaginationPages}
+							paginate={paginate}
+							prevPage={prevPage}
+							nextPage={nextPage}
 						/>
 					</div>
 				</>

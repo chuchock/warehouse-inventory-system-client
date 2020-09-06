@@ -3,9 +3,9 @@ import authHeader from "../helpers/authHeader";
 
 const API_URL = "http://localhost:4000/api";
 
-const getSales = (page = 2) => {
+const getSales = (page = 1) => {
     //http://localhost:4000/api/sales/?recordsPerPage=100&page=1
-    return axios.get(API_URL + `/sales/?recordsPerPage=10&page=${page}`, { headers: authHeader() });
+    return axios.get(API_URL + `/sales/?page=${page}`, { headers: authHeader() });
 };
 
 const makeSale = (cart) => {
