@@ -1,35 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const Pagination = ({ rowsPerPage, totalRows, Paginate }) => {
+const Pagination = ({ rowsPerPage, pageNumbers, paginate, nextPage, prevPage }) => {
 
-    const [pageNumbers, setPageNumbers] = useState([]);
+	let rows = [];
 
-    useEffect(() => {
-        for (let i = 1; i <= Math.ceil(totalRows / rowsPerPage); i++) {
-            setPageNumbers([
-                ...pageNumbers,
-                i
-            ])
-        }
-    }, []);
+	for (let i = 1; i <= pageNumbers; i++) {
+		rows.push(<li key={i} className="page-item">
+			<a onClick={() => paginate(i)} className="page-link" href="#">{i}</a>
+		</li>)
+	}
 
-    return (
-        <nav aria-label="Page navigation example">
-            <ul className="pagination">
-                <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                {
-                    pageNumbers.map(item => (
-                        <li key={item} className="page-item"><a className="page-link" href="#">{item}</a></li>
-                    ))
-                }
-
-
-                {/* <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li> */}
-                <li className="page-item"><a className="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    );
+	return (
+		<nav aria-label="Page navigation example">
+			<ul className="pagination mb-0">
+				<li className="page-item"><a onClick={() => prevPage()} className="page-link" href="#">Previous</a></li>
+				{
+					rows
+				}
+				<li className="page-item"><a onClick={() => nextPage()} className="page-link" href="#">Next</a></li>
+			</ul>
+		</nav>
+	);
 }
 
 export default Pagination
