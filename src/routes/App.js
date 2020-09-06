@@ -14,6 +14,7 @@ import CategoryNew from '../domain/CategoryNew';
 import Products from '../domain/Products';
 import ProductNew from '../domain/ProductNew';
 import Sales from '../domain/Sales';
+import SalesNew from '../domain/SalesNew';
 import NotFound from '../domain/NotFound';
 
 import { authenticationService } from '../services/authenticationService';
@@ -44,6 +45,7 @@ const App = () => {
 					<Switch>
 						<Route exact path={['/', '/dashboard']} component={Dashboard} />
 						<Route exact path="/sales" component={Sales} />
+						<Route exact path="/sales/new" component={SalesNew} />
 						<Route exact path="/inventories" component={Inventories} />
 						<Route exact path="/inventories/new" component={InventoryNew} />
 						<Route exact path="/warehouses" component={Warehouses} />

@@ -1,162 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import Product from '../components/Product';
+import { Link } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
-import InventoryService from '../services/inventoryService';
 
-import './styles/Sales.css';
+import SaleService from '../services/saleService';
 
 const Sales = () => {
 
-	const [searchProduct, setSearchProduct] = useState('');
-
-	const [products, setProducts] = useState([]);
-
-	const [cart, setCart] = useState([]);
-
-	const [total, setTotal] = useState(0.0);
+	const [sales, setSales] = useState([]);
 
 	useEffect(() => {
-		if (searchProduct !== '') {
-			setTimeout(() => {
-				InventoryService.getProductStock(searchProduct).then(
-					(response) => {
-						// Get difference between response products and cart
-						const diffProducts = response.data.filter(({ inventoryId: id1 }) => !cart.some(({ inventoryId: id2 }) => id1 === id2));
-
-						setProducts(diffProducts);
-					},
-					(error) => {
-						console.log("error: " + error);
-					}
-				);
-			}, 400);
-		}
-	}, [searchProduct]);
-
-	const handleSearchProduct = (e) => {
-		setSearchProduct(e.target.value);
-	}
-
-	const addProduct = (inventoryId, saleQuantity) => {
-		// add product to cart
-		const product = products.find(product => product.inventoryId === inventoryId);
-		product.saleQuantity = saleQuantity;
-		setCart([
-			...cart,
-			product
-		]);
-
-		// calculate total
-		const totalCost = parseFloat(total) + parseFloat(product.product.salePrice * product.saleQuantity)
-		setTotal(totalCost);
-
-		// remove product from search list
-		const newProducts = products.filter(product => product.inventoryId !== inventoryId);
-		setProducts(newProducts);
-	}
-
-	const deleteProduct = (inventoryId) => {
-		// calculate total
-		const product = cart.find(product => product.inventoryId === inventoryId);
-		const totalCost = parseFloat(total) - parseFloat(product.product.salePrice * product.saleQuantity);
-		setTotal(totalCost);
-
-		// remove product from cart array
-		const newCart = cart.filter(product => product.inventoryId !== inventoryId);
-		setCart(newCart);
-		setSearchProduct('');
-	}
-
-	const submitSale = () => {
-
-	}
+		SaleService.getSales().then(
+			(response) => {
+				console.log(response);
+				setSales(response.data);
+			},
+			(error) => {
+				console.log("error: " + error);
+			}
+		);
+	}, []);
 
 	return (
-		<>
+		<div>
 			<h2>Sales</h2>
-			<div className="form-group">
-				<input
-					type="text"
-					className="form-control"
-					name="searchProduct"
-					placeholder="Search a product"
-					value={searchProduct}
-					onChange={handleSearchProduct}
-				/>
-			</div>
+			<br />
+			<Link to="/sales/new" className="btn btn-primary">Add new</Link>
+			<br /><br />
 
-			<div className="row">
-				<div className="col-md-12">
-					<div className="cart-header">
-						<span className="font-weight-bold mr-1">Products added to cart:</span><span>{cart.length}</span>
-					</div>
-					{cart.map(cart => {
-						return (
-							<div key={cart.inventoryId} className="card cart-container">
-								<div className="card-body">
-									<div className="cart-container-product">
-										<div>
-											<span className="font-weight-bold">Name: </span>
-											{cart.product.name}
-										</div>
-										<div>
-											<span className="font-weight-bold">Description: </span>
-											{cart.product.description}
-										</div>
-										<div>
-											<span className="font-weight-bold">Warehouse: </span>
-											{cart.warehouse.name}
-										</div>
-										<div>
-											<span className="font-weight-bold">Price: </span>
-											{cart.product.salePrice}
-										</div>
-										<div>
-											<span className="font-weight-bold">Quantity: </span>
-											{cart.saleQuantity}
-										</div>
-										<button type="button" className="btn btn-danger" onClick={() => deleteProduct(cart.inventoryId)}>Delete</button>
-									</div>
-								</div>
-							</div>
-						);
-					})
-					}
-					<div className="cart-summary mt-2 mb-2">
-						<span className="font-weight-bold mr-1">Total: $ </span> {total}
-					</div>
-					<div className="cart-footer">
-						<button
-							type="button"
-							className="btn btn-primary"
-							disabled={cart.length > 0 ? "" : "disabled"}
-							onClick={submitSale}>Make sale</button>
-					</div>
+			{sales.length === 0 ? (
+				<div className="alert alert-info" role="alert">
+					No registered sales.
 				</div>
-			</div>
+			) :
+				<>
+					<table className="table">
+						<thead>
+							<tr>
+								<th scope="col">Date</th>
+								<th scope="col">Total</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{sales.map(sale => {
+								return (
+									<tr key={sale.saleId}>
+										<td>{sale.saleDate}</td>
+										<td>{sale.total}</td>
+										<td className="table-actions">
+											<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
 
-			<hr />
-
-			<div className="row">
-				{products.map(product => {
-					return (
-						<Product
-							key={product.inventoryId}
-							inventoryId={product.inventoryId}
-							name={product.product.name}
-							description={product.product.description}
-							quantity={product.quantity}
-							salePrice={product.product.salePrice}
-							saleAction={true}
-							column={'col-md-4'}
-							addProduct={addProduct}
+					<div className="d-flex justify-content-center">
+						<Pagination
+							rowsPerPage={10}
+							totalRows={sales.length}
 						/>
-					);
-				})
-				}
-			</div>
-		</>
-	)
-};
+					</div>
+				</>
+			}
+		</div>
+	);
+}
 
 export default Sales;
