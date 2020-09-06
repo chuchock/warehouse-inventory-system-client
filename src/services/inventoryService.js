@@ -3,8 +3,8 @@ import authHeader from "../helpers/authHeader";
 
 const API_URL = "http://localhost:4000/api";
 
-const getInventoriesByWarehouse = (idWarehouse) => {
-	return axios.get(API_URL + "/warehouses/" + idWarehouse + "/inventories", { headers: authHeader() });
+const getInventoriesByWarehouse = (idWarehouse, page = 1) => {
+	return axios.get(API_URL + `/warehouses/${idWarehouse}/inventories/?page=${page}`, { headers: authHeader() });
 };
 
 const createInventory = (inventory) => {
