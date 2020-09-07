@@ -15,7 +15,7 @@ module.exports = {
 			filename: './index.html',
 		}),
 		new Dotenv({
-			path: './.env.development.local',
+			path: './.env',
 		})
 	],
 	module: {
