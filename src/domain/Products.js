@@ -46,37 +46,40 @@ const Products = () => {
 			<Link to="/products/new" className="btn btn-primary">Add new</Link>
 			<br /><br />
 
-			{products.length === 0 && (
+			{products.length === 0 ? (
 				<div className="alert alert-info" role="alert">
 					There are no registered products.
 				</div>
-			)}
+			)
+				:
+				<>
+					<div className="row">
+						{products.map(product => {
+							return (
+								<Product
+									key={product.productId}
+									name={product.name}
+									description={product.description}
+									quantity={product.quantity}
+									buyPrice={product.buyPrice}
+									salePrice={product.salePrice}
+									column={'col-md-6'}
+								/>
+							);
+						})}
+					</div>
 
-			<div className="row">
-				{products.map(product => {
-					return (
-						<Product
-							key={product.productId}
-							name={product.name}
-							description={product.description}
-							quantity={product.quantity}
-							buyPrice={product.buyPrice}
-							salePrice={product.salePrice}
-							column={'col-md-6'}
+					<div className="d-flex justify-content-center mt-4">
+						<Pagination
+							rowsPerPage={10}
+							pageNumbers={totalPaginationPages}
+							paginate={paginate}
+							prevPage={prevPage}
+							nextPage={nextPage}
 						/>
-					);
-				})}
-			</div>
-
-			<div className="d-flex justify-content-center mt-4">
-				<Pagination
-					rowsPerPage={10}
-					pageNumbers={totalPaginationPages}
-					paginate={paginate}
-					prevPage={prevPage}
-					nextPage={nextPage}
-				/>
-			</div>
+					</div>
+				</>
+			}
 		</div>
 	);
 };
