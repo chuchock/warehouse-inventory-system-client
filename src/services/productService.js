@@ -1,18 +1,16 @@
-import axios from "axios";
 import authHeader from "../helpers/authHeader";
-
-const API_URL = "http://localhost:4000/api";
+import axiosClient from '../config/axios';
 
 const getProducts = (page = 1) => {
-	return axios.get(API_URL + `/products/?page=${page}`, { headers: authHeader() });
+	return axiosClient.get(`/api/products/?page=${page}`, { headers: authHeader() });
 };
 
 const getProductsCount = () => {
-	return axios.get(API_URL + "/products/count", { headers: authHeader() });
+	return axiosClient.get('/api/products/count', { headers: authHeader() });
 };
 
 const getProduct = (idProduct) => {
-	return axios.get(API_URL + "/product/" + idProduct, { headers: authHeader() });
+	return axiosClient.get('/api/product/' + idProduct, { headers: authHeader() });
 };
 
 const createProduct = (product) => {
@@ -23,7 +21,7 @@ const createProduct = (product) => {
 		salePrice: product.salePrice,
 		categoryId: product.categoryId,
 	}
-	return axios.post(API_URL + "/products", data, { headers: authHeader() });
+	return axiosClient.post('/api/products', data, { headers: authHeader() });
 };
 
 export default {

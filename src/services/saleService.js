@@ -1,18 +1,15 @@
-import axios from "axios";
 import authHeader from "../helpers/authHeader";
-
-const API_URL = "http://localhost:4000/api";
+import axiosClient from '../config/axios';
 
 const getSales = (page = 1) => {
-    //http://localhost:4000/api/sales/?recordsPerPage=100&page=1
-    return axios.get(API_URL + `/sales/?page=${page}`, { headers: authHeader() });
+	return axiosClient.get(`/api/sales/?page=${page}`, { headers: authHeader() });
 };
 
 const makeSale = (cart) => {
-    return axios.post(API_URL + "/sales", cart, { headers: authHeader() });
+	return axiosClient.post('/api/sales', cart, { headers: authHeader() });
 };
 
 export default {
-    getSales,
-    makeSale
+	getSales,
+	makeSale
 };

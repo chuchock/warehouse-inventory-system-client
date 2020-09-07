@@ -1,10 +1,8 @@
-import axios from "axios";
 import authHeader from "../helpers/authHeader";
-
-const API_URL = "http://localhost:4000/api";
+import axiosClient from '../config/axios';
 
 const getInventoriesByWarehouse = (idWarehouse, page = 1) => {
-	return axios.get(API_URL + `/warehouses/${idWarehouse}/inventories/?page=${page}`, { headers: authHeader() });
+	return axiosClient.get(`/api/warehouses/${idWarehouse}/inventories/?page=${page}`, { headers: authHeader() });
 };
 
 const createInventory = (inventory) => {
@@ -13,13 +11,12 @@ const createInventory = (inventory) => {
 		warehouseId: inventory.warehouseId,
 		quantity: inventory.quantity
 	}
-	return axios.post(API_URL + "/inventories", data, { headers: authHeader() });
+	return axiosClient.post('/api/inventories', data, { headers: authHeader() });
 };
 
 const getProductStock = (name) => {
-	return axios.get(API_URL + "/inventories/0/product/" + name, { headers: authHeader() });
+	return axiosClient.get('/api/inventories/0/product/' + name, { headers: authHeader() });
 };
-
 
 export default {
 	getInventoriesByWarehouse,

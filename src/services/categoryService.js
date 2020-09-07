@@ -1,22 +1,20 @@
-import axios from "axios";
 import authHeader from "../helpers/authHeader";
-
-const API_URL = "http://localhost:4000/api";
+import axiosClient from '../config/axios';
 
 const getCategories = (page = 1) => {
-	return axios.get(API_URL + `/categories/?page=${page}`, { headers: authHeader() });
+	return axiosClient.get(`/api/categories/?page=${page}`, { headers: authHeader() });
 };
 
 const getCategoriesCount = () => {
-	return axios.get(API_URL + "/categories/count", { headers: authHeader() });
+	return axiosClient.get('/api/categories/count', { headers: authHeader() });
 };
 
 const getCategory = (idCategory) => {
-	return axios.get(API_URL + "/categories/" + idCategory, { headers: authHeader() });
+	return axiosClient.get('/api/categories/' + idCategory, { headers: authHeader() });
 };
 
 const createCategory = (category) => {
-	return axios.post(API_URL + "/categories", category, { headers: authHeader() });
+	return axiosClient.post('/api/categories', category, { headers: authHeader() });
 };
 
 export default {
