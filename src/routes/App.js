@@ -38,12 +38,12 @@ const App = () => {
 				<Switch>
 					<Route exact path={["/", "/login"]} component={Login} />
 					<Route exact path="/register" component={Register} />
-					<Route component={NotFound} />
+					<Route component={Login} />
 				</Switch>
 				:
 				<Layout>
 					<Switch>
-						<Route exact path={['/', '/dashboard']} component={Dashboard} />
+						<Route exact path={["/", "/dashboard"]} component={Dashboard} />
 						<Route exact path="/sales" component={Sales} />
 						<Route exact path="/sales/new" component={SalesNew} />
 						<Route exact path="/inventories" component={Inventories} />
@@ -54,6 +54,7 @@ const App = () => {
 						<Route exact path="/categories/new" component={CategoryNew} />
 						<Route exact path="/products" component={Products} />
 						<Route exact path="/products/new" component={ProductNew} />
+						<Route component={Dashboard} />
 					</Switch>
 				</Layout>
 			}
