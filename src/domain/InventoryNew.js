@@ -22,7 +22,7 @@ const InventoryNew = () => {
 			productId: Yup.string()
 				.required("This field is required!"),
 			quantity: Yup.number()
-				.required("This field is required!").positive()
+				.required("This field is required!").positive().max(50., 'quantity must be shorter than 50').integer()
 		}),
 		onSubmit: () => addInventory()
 	});
@@ -166,6 +166,7 @@ const InventoryNew = () => {
 						onChange={handleChange}
 						onBlur={handleBlur}
 						value={values.quantity}
+						maxLength="6"
 					/>
 					{touched.quantity && errors.quantity ? (
 						<div className="alert alert-danger"
