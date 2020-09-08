@@ -1,8 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import axiosClient from '../config/axios';
-
-// import config from 'config';
-import { handleResponse } from '../helpers/handleResponse';
+import axios from 'axios';
 
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
@@ -20,7 +17,7 @@ function register(email, password) {
 		Password: password
 	}
 
-	return axiosClient.post('/api/accounts/create', data);
+	return axios.post(process.env.REACT_APP_BACKEND_URL + '/api/accounts/create', data);
 }
 
 function login(username, password) {
@@ -29,8 +26,8 @@ function login(username, password) {
 		Password: password
 	}
 
-	return axiosClient
-		.post('/api/accounts/login', data)
+	return axios
+		.post(process.env.REACT_APP_BACKEND_URL + '/api/accounts/login', data)
 		.then((response) => {
 			if (response.data.token) {
 				localStorage.setItem("currentUser", JSON.stringify(response.data.token));
