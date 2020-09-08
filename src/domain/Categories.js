@@ -15,7 +15,6 @@ const Categories = () => {
 	useEffect(() => {
 		CategoryService.getCategories(pageNum).then(
 			(response) => {
-				console.log(response);
 				setTotalPaginationPages(response.headers.totalamountpages);
 				setCategories(response.data);
 			},
@@ -62,7 +61,6 @@ const Categories = () => {
 						<thead>
 							<tr>
 								<th scope="col">Name</th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,15 +68,6 @@ const Categories = () => {
 								return (
 									<tr key={category.categoryId}>
 										<td>{category.name}</td>
-										<td className="table-actions">
-											<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
-											<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
-											<button
-												type="button"
-												className="btn btn-danger"
-												onClick={() => deleteCategory(category.categoryId)}
-											><i className="fas fa-trash-alt"></i></button>
-										</td>
 									</tr>
 								);
 							})}
