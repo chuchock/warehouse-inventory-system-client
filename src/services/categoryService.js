@@ -14,7 +14,10 @@ const getCategory = (idCategory) => {
 };
 
 const createCategory = (category) => {
-	return axiosClient.post('/api/categories', category, { headers: authHeader() });
+	const data = {
+		name: category
+	}
+	return axiosClient.post('/api/categories', data, { headers: authHeader() });
 };
 
 export default {
