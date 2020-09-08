@@ -1,11 +1,4 @@
 import axios from 'axios';
-import authHeader from "../helpers/authHeader";
-
-// const axiosClient = axios.create({
-// 	baseURL: process.env.REACT_APP_BACKEND_URL
-// });
-
-// export default axiosClient;
 
 export default (history = null) => {
 	const baseURL = process.env.REACT_APP_BACKEND_URL;
@@ -27,10 +20,6 @@ export default (history = null) => {
 			}
 
 			if (error.response.status === 403 || error.response.status === 401) {
-				// axios.post(baseURL + '/api/accounts/renewToken', { headers: authHeader() })
-				// 	.then((response) => {
-				// 		console.log("llegaaaaaaaaaaaaaaaaaaaaaaaa");
-
 				localStorage.removeItem('currentUser');
 
 				if (history) {
@@ -38,8 +27,6 @@ export default (history = null) => {
 				} else {
 					window.location = "/login";
 				}
-				// });
-
 			} else {
 				return new Promise((resolve, reject) => {
 					reject(error);
