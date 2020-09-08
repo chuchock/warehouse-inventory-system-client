@@ -35,11 +35,11 @@
 
 #sidebar ul li a:hover {
 	color: #7386D5;
-	background: #fff;
+	background: #fafafa;
 }
 
 #sidebar ul li.active>a, a[aria-expanded="true"] {
-	color: #fff;
+	color: #fafafa;
 	background: #6d7fcc;
 }
 
