@@ -53,6 +53,10 @@ const Products = () => {
 			)
 				:
 				<>
+					<div className="text-center">
+						<h5>Number of products: {products.length}</h5>
+					</div>
+
 					<div className="row">
 						{products.map(product => {
 							return (
@@ -60,9 +64,9 @@ const Products = () => {
 									key={product.productId}
 									name={product.name}
 									description={product.description}
-									quantity={product.quantity}
 									buyPrice={product.buyPrice}
 									salePrice={product.salePrice}
+									category={product.category.name}
 									column={'col-md-6'}
 								/>
 							);
