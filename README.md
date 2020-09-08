@@ -4,7 +4,7 @@ Frontend for a small system for warehouse and inventory management
 
 ### 🛠️ Principal technologies
 
-- [**Reactjs**](https://vuejs.org/)
+- [**Reactjs**](https://reactjs.org/)
 - [**Bootstrap**](https://getbootstrap.com/)
 
 ## Project setup
