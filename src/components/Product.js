@@ -30,7 +30,7 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 				</div>
 				<div className="row no-gutters mb-2">
 					<div className="col-md-6 product-image">
-						<img src="https://thumbs.dreamstime.com/z/cleaning-product-22555088.jpg" className="card-img" alt="" />
+						<img src="https://image.flaticon.com/icons/png/128/102/102348.png?ga=GA1.2.670816050.1596686111" className="card-img w-50" alt="product" />
 					</div>
 					<div className="col-md-6">
 						<div className="card-body">
@@ -46,13 +46,11 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 							{category &&
 								<p className="card-text mb-0"><small className="text-muted font-weight-bold">Category: </small><small>{category}</small></p>
 							}
-
-							{/* <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p> */}
 						</div>
 					</div>
 				</div>
 				<div>
-					{saleAction ?
+					{saleAction &&
 						<>
 							<div className="form-group">
 								<input
@@ -77,8 +75,6 @@ const Product = ({ inventoryId, name, description, quantity, buyPrice, salePrice
 									onClick={() => addProduct(inventoryId, saleQuantity)}>Add</button>
 							</div>
 						</>
-						:
-						<button type="button" className="btn btn-danger">Delete</button>
 					}
 				</div>
 			</div>
