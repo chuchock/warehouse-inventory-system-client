@@ -38,6 +38,11 @@ const Sales = () => {
 			setPageNum(pageNum - 1);
 	}
 
+	var formatter = new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+	});
+
 	return (
 		<div>
 			<h2>Sales</h2>
@@ -56,7 +61,6 @@ const Sales = () => {
 							<tr>
 								<th scope="col">Date</th>
 								<th scope="col">Total</th>
-								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,10 +68,7 @@ const Sales = () => {
 								return (
 									<tr key={sale.saleId}>
 										<td>{sale.formatedDate}</td>
-										<td>${sale.total}</td>
-										<td className="table-actions">
-											<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
-										</td>
+										<td>{formatter.format(sale.total)}</td>
 									</tr>
 								);
 							})}
