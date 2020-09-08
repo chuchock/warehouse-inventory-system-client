@@ -15,7 +15,6 @@ const Sales = () => {
 	useEffect(() => {
 		SaleService.getSales(pageNum).then(
 			(response) => {
-				console.log(response);
 				setTotalPaginationPages(response.headers.totalamountpages);
 				setSales(response.data);
 			},
@@ -64,8 +63,8 @@ const Sales = () => {
 							{sales.map(sale => {
 								return (
 									<tr key={sale.saleId}>
-										<td>{sale.saleDate}</td>
-										<td>{sale.total}</td>
+										<td>{sale.formatedDate}</td>
+										<td>${sale.total}</td>
 										<td className="table-actions">
 											<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
 										</td>
