@@ -6,7 +6,7 @@ import './styles/Sidebar.css';
 const Sidebar = () => (
 	<div id="sidebar">
 		<div className="sidebar-header">
-			<h3>WYSIS</h3>
+			<h3>WISYS</h3>
 		</div>
 
 		<ul className="list-unstyled components">
