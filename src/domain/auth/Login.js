@@ -1,81 +1,49 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { authenticationService } from '../../services/authenticationService';
 
-const Login = (props) => {
+const Login = () => {
 
-	const required = (value) => {
-		if (!value) {
-			return (
-				<div className="alert alert-danger" role="alert">
-					This field is required!
-				</div>
-			);
-		}
-	};
+	const { handleSubmit, handleChange, values, touched, errors, handleBlur } = useFormik({
+		initialValues: {
+			username: '',
+			password: ''
+		},
+		validationSchema: Yup.object({
+			username: Yup.string()
+				.email("This is not a valid email")
+				.required("This field is required!"),
+			password: Yup.string()
+				.required("This field is required!"),
+		}),
+		onSubmit: () => doLogin(values)
+	})
 
-	const validEmail = (value) => {
-		if (!isEmail(value)) {
-			return (
-				<div className="alert alert-danger" role="alert">
-					This is not a valid email.
-				</div>
-			);
-		}
-	};
-
-	const form = useRef();
-	const checkBtn = useRef();
-
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [message, setMessage] = useState("");
 
-	const onChangeUsername = (e) => {
-		const username = e.target.value;
-		setUsername(username);
-	};
-
-	const onChangePassword = (e) => {
-		const password = e.target.value;
-		setPassword(password);
-	};
-
-	const handleLogin = (e) => {
-		e.preventDefault();
-
+	const doLogin = (data) => {
 		setMessage("");
 		setLoading(true);
 
-		form.current.validateAll();
-
-		if (checkBtn.current.context._errors.length === 0) {
-			authenticationService.login(username, password).then(
-				() => {
-					props.history.push("/dashboard");
-					window.location.reload();
-				},
-				(error) => {
-					const resMessage =
+		authenticationService.login(data.username, data.password).then(
+			() => {
+				window.location.reload();
+			},
+			(error) => {
+				const resMessage =
 					(error.response &&
 						error.response.data &&
 						error.response.data.message) ||
 					error.message ||
 					error.toString();
 
-					setLoading(false);
-					setMessage(resMessage);
-				}
-			);
-		} else {
-			setLoading(false);
-		}
+				setLoading(false);
+				setMessage(resMessage);
+			}
+		);
 	};
 
 	return (
@@ -87,33 +55,47 @@ const Login = (props) => {
 					className="profile-img-card"
 				/>
 
-				<Form onSubmit={handleLogin} ref={form}>
+				<form onSubmit={handleSubmit}>
 					<div className="form-group">
 						<label htmlFor="username">Email</label>
-						<Input
+						<input
 							type="text"
 							className="form-control"
+							id="username"
 							name="username"
-							value={username}
-							onChange={onChangeUsername}
-							validations={[required, validEmail]}
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.username}
 						/>
+						{touched.username && errors.username ? (
+							<div className="alert alert-danger"
+								role="alert">
+								{errors.username}
+							</div>
+						) : null}
 					</div>
 
 					<div className="form-group">
 						<label htmlFor="password">Password</label>
-						<Input
+						<input
 							type="password"
 							className="form-control"
 							name="password"
-							value={password}
-							onChange={onChangePassword}
-							validations={[required]}
+							id="password"
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.password}
 						/>
+						{touched.password && errors.password ? (
+							<div className="alert alert-danger"
+								role="alert">
+								{errors.password}
+							</div>
+						) : null}
 					</div>
 
 					<div className="form-group">
-						<button className="btn btn-primary btn-block" disabled={loading}>
+						<button type="submit" className="btn btn-primary btn-block" disabled={loading}>
 							{loading && (
 								<span className="spinner-border spinner-border-sm"></span>
 							)}
@@ -128,8 +110,8 @@ const Login = (props) => {
 							</div>
 						</div>
 					)}
-					<CheckButton style={{ display: "none" }} ref={checkBtn} />
-				</Form>
+				</form>
+
 				<Link to="/register" className="">Register</Link>
 			</div>
 		</div>
