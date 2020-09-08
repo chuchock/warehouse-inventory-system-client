@@ -25,9 +25,9 @@ const ProductNew = () => {
 				.required("This field is required!")
 				.max(100, 'Name must be shorter than 100 characters'),
 			buyPrice: Yup.number()
-				.required("This field is required!").positive(),
+				.required("This field is required!").positive().max(100000),
 			salePrice: Yup.number()
-				.required("This field is required!").positive(),
+				.required("This field is required!").positive().max(100000),
 			categoryId: Yup.string()
 				.required("This field is required!")
 		}),
