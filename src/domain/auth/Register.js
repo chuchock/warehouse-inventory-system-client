@@ -61,7 +61,6 @@ const Register = (props) => {
 	const [successful, setSuccessful] = useState(false);
 	const [message, setMessage] = useState("");
 
-
 	const onChangeEmail = (e) => {
 		const email = e.target.value;
 		setEmail(email);
@@ -93,13 +92,6 @@ const Register = (props) => {
 					setSuccessful(true);
 				},
 				(error) => {
-					// const resMessage =
-					// 	(error.response &&
-					// 		error.response.data &&
-					// 		error.response.data.message) ||
-					// 	error.message ||
-					// 	error.toString();
-
 					const resMessage = <ul>
 						{error.response.data.map(res => <li key={res.code}>{res.description}</li>)}
 					</ul>
