@@ -83,6 +83,16 @@ a.article, a.article:hover {
 	color: #fff !important;
 }
 
+.sidebar-collapse {
+	margin-left: -250px !important;
+	transform: rotateY(90deg) !important;
+}
+
+.sidebar-show {
+	margin-left: 0px !important;
+	transform: none !important;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
