@@ -9,7 +9,12 @@ const makeSale = (cart) => {
 	return axiosClient.post('/api/sales', cart, { headers: authHeader() });
 };
 
+const getSalesCount = () => {
+	return axiosClient.get('/api/sales/count', { headers: authHeader() });
+};
+
 export default {
 	getSales,
-	makeSale
+	makeSale,
+	getSalesCount
 };
