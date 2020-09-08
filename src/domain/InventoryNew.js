@@ -1,28 +1,35 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 import WarehouseService from '../services/warehouseService';
 import ProductService from '../services/productService';
 import InventoryService from '../services/inventoryService';
 
-const InventoryNew = (props) => {
+const InventoryNew = () => {
 
-	const [inventory, setInventory] = useState({
-		warehouseId: -1,
-		productId: -1,
-		quantity: 0
+	const { handleSubmit, handleChange, values, touched, errors, handleBlur, resetForm } = useFormik({
+		initialValues: {
+			warehouseId: '',
+			productId: '',
+			quantity: 0
+		},
+		validationSchema: Yup.object({
+			warehouseId: Yup.string()
+				.required("This field is required!"),
+			productId: Yup.string()
+				.required("This field is required!"),
+			quantity: Yup.number()
+				.required("This field is required!").positive()
+		}),
+		onSubmit: () => addInventory()
 	});
 
 	const [warehouses, setWarehouses] = useState([]);
 
 	const [products, setProducts] = useState([]);
-
-	const updateState = e => {
-		setInventory({
-			...inventory,
-			[e.target.name]: e.target.value
-		})
-	}
 
 	useEffect(() => {
 		WarehouseService.getWarehouses().then(
@@ -44,45 +51,65 @@ const InventoryNew = (props) => {
 		);
 	}, []);
 
-	const { warehouseId, productId, quantity } = inventory;
+	const addInventory = () => {
+		Swal.fire({
+			title: 'Are you sure to add the product to the inventory?',
+			text: "",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'No, cancel!',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.value) {
+				InventoryService.createInventory(values).then(
+					(response) => {
+						resetForm({});
 
-	const submitInventory = e => {
-		e.preventDefault();
-
-		InventoryService.createInventory(inventory).then(
-			(response) => {
-				setInventory({
-					warehouseId: -1,
-					ProductId: -1,
-					quantity: 0
-				});
-
-				props.history.push('/inventories');
-			},
-			(error) => {
-				console.log("error: " + error);
+						Swal.fire(
+							'Done!',
+							'The product has been added to the inventory.',
+							'success'
+						)
+					},
+					(error) => {
+						console.log("error: " + error);
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Something went wrong!'
+						});
+					}
+				);
+			} else if (
+				result.dismiss === Swal.DismissReason.cancel
+			) {
+				// swalWithBootstrapButtons.fire(
+				// 	'Cancelled',
+				// 	'Your imaginary file is safe :)',
+				// 	'error'
+				// )
 			}
-		);
+		});
 	}
 
 	return (
-		<Fragment>
+		<>
 			<Link to="/inventories" className="btn btn-link">Back</Link>
 			<br /><br />
 
-			<form
-				onSubmit={submitInventory}
-			>
+			<form onSubmit={handleSubmit}>
 				<div className="form-group">
-					<label>Warehouse</label>
+					<label>Warehouse*</label>
 					<select
 						name="warehouseId"
 						className="form-control"
-						onChange={updateState}
-						value={warehouseId}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						value={values.warehouseId}
 					>
 						<option
-							value="-1"
+							value=""
 						>Choose warehouse</option>
 						{warehouses.map(warehouse => {
 							return (
@@ -93,15 +120,22 @@ const InventoryNew = (props) => {
 							);
 						})}
 					</select>
+					{touched.warehouseId && errors.warehouseId ? (
+						<div className="alert alert-danger"
+							role="alert">
+							{errors.warehouseId}
+						</div>
+					) : null}
 				</div>
 
 				<div className="form-group">
-					<label>Product</label>
+					<label>Product*</label>
 					<select
 						name="productId"
 						className="form-control"
-						onChange={updateState}
-						value={productId}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						value={values.productId}
 					>
 						<option
 							value="-1"
@@ -115,23 +149,35 @@ const InventoryNew = (props) => {
 							);
 						})}
 					</select>
+					{touched.productId && errors.productId ? (
+						<div className="alert alert-danger"
+							role="alert">
+							{errors.productId}
+						</div>
+					) : null}
 				</div>
 
 				<div className="form-group">
-					<label>Quantity</label>
+					<label>Quantity*</label>
 					<input
 						type="text"
 						className="form-control"
 						name="quantity"
-						placeholder=""
-						onChange={updateState}
-						value={quantity}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						value={values.quantity}
 					/>
+					{touched.quantity && errors.quantity ? (
+						<div className="alert alert-danger"
+							role="alert">
+							{errors.quantity}
+						</div>
+					) : null}
 				</div>
 
 				<button className="btn btn-primary">Save</button>
 			</form>
-		</Fragment>
+		</>
 	);
 }
 
