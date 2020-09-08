@@ -15,6 +15,8 @@ const Inventories = () => {
 
 	const [totalPaginationPages, setTotalPaginationPages] = useState(0);
 
+	const [warehouse, setWarehouse] = useState('-1');
+
 	useEffect(() => {
 		WarehouseService.getWarehouses().then(
 			(response) => {
@@ -24,19 +26,11 @@ const Inventories = () => {
 				console.log("error: " + error);
 			}
 		);
-
-		InventoryService.getInventoriesByWarehouse(1, pageNum).then(
-			(response) => {
-				setTotalPaginationPages(response.headers.totalamountpages);
-				setInventories(response.data);
-			},
-			(error) => {
-				console.log("error: " + error);
-			}
-		);
 	}, []);
 
 	const handleChange = e => {
+		setWarehouse(e.target.value);
+
 		InventoryService.getInventoriesByWarehouse(e.target.value, pageNum).then(
 			(response) => {
 				setTotalPaginationPages(response.headers.totalamountpages);
@@ -76,6 +70,7 @@ const Inventories = () => {
 						className="form-control"
 						onChange={handleChange}
 					>
+						<option value="">Choose warehouse</option>
 						{warehouses.map(warehouse => {
 							return (
 								<option
@@ -86,13 +81,11 @@ const Inventories = () => {
 						})}
 					</select>
 				</div>
-
-				{/* <button className="btn btn-primary">Search</button> */}
 			</form>
 
 			<br></br>
 
-			{inventories.length === 0 ? (
+			{inventories.length === 0 && warehouse !== '' ? (
 				<div className="alert alert-info" role="alert">
 					There are no registered inventories.
 				</div>
@@ -103,7 +96,6 @@ const Inventories = () => {
 							<tr>
 								<th scope="col">Product</th>
 								<th scope="col">Quantity</th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -112,15 +104,6 @@ const Inventories = () => {
 									<tr key={inventory.inventoryId}>
 										<td>{inventory.product.name}</td>
 										<td>{inventory.quantity}</td>
-										<td className="table-actions">
-											<button type="button" className="btn btn-primary"><i className="fas fa-eye"></i></button>
-											<button type="button" className="btn btn-success"><i className="fas fa-edit"></i></button>
-											{/* <button
-										type="button"
-										className="btn btn-danger"
-										onClick={() => deleteCategory(category.categoryId)}
-									><i className="fas fa-trash-alt"></i></button> */}
-										</td>
 									</tr>
 								);
 							})}
