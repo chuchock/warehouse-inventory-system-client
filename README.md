@@ -20,12 +20,12 @@ Password: Acklen1#
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles for development
 ```
 npm run start
 ```
 
-### Compiles and minifies for production
+### Compiles for production
 ```
 npm run build
 ```
