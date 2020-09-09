@@ -29,3 +29,7 @@ npm run start
 ```
 npm run build
 ```
+
+### Backend project
+
+https://github.com/chuchock/warehouse-inventory-system-backend/blob/master/README.md
